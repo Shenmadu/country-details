@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-    const[country,setCountry]=useState("sri Lanka");
-    const[details,setDetails]=useState({});
+    const [country, setCountry] = useState("Sri Lanka");
+    const [details, setDetails] = useState([]);
 
 
-   function search(){
-        const searchCountry=document.getElementById("search-txt").value;
+    function search() {
+        const searchCountry = document.getElementById("search-txt").value;
         console.log(searchCountry);
+        setCountry(searchCountry);
     }
+    useEffect(() => {
+        fetch(`https://restcountries.com/v3.1/name/${country}?fullText=true`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setDetails(data);
+            });
+
+    }, [country])
 
 
     return (
@@ -19,8 +29,15 @@ export default function Home() {
                     <button className="btn btn-outline-success" onClick={search} type="submit">Search</button>
                 </div>
             </div>
-            <h4>Name : </h4>
-            <h3>Democratic : </h3>
+            {details && details.map(details =>
+                <div className="container text-center">
+                     <img src={details.flags.png} alt=".." />
+                    <h4>Name :{details.name.common} </h4>
+                    <h3>Democratic :{details.name.official} </h3>
+                </div>
+
+            )}
+
 
 
         </div>
