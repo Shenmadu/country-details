@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
 
 export default function Home() {
     const [country, setCountry] = useState("Sri Lanka");
@@ -25,13 +28,13 @@ export default function Home() {
         <div className="container  ">
             <div className="col-4 py-5 mx-auto">
                 <div className="d-flex" role="search">
-                    <input className="form-control me-2" id="search-txt" type="search" placeholder="Search" aria-label="Search" />
-                    <button className="btn btn-outline-success" onClick={search} type="submit">Search</button>
+                    <TextField  id="search-txt" className="form-control me-2" label="Standard" variant="standard" />                   
+                    <Button variant="outlined" onClick={search}>Search</Button>
                 </div>
             </div>
             {details && details.map(details =>
                 <div className="container text-center">
-                     <img src={details.flags.png} alt=".." />
+                    <img src={details.flags.png} alt=".." />
                     <h4>Name :{details.name.common} </h4>
                     <h3>Democratic :{details.name.official} </h3>
                 </div>
