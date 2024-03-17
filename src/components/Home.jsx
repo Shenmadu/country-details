@@ -25,7 +25,7 @@ export default function Home() {
 
 
     return (
-        <div className="container  ">
+        <div className="container  mt-5">
             <div className="col-4 py-5 mx-auto">
                 <div className="d-flex" role="search">
                     <TextField  id="search-txt" className="form-control me-2" label="Standard" variant="standard" />                   
@@ -36,6 +36,7 @@ export default function Home() {
                 <div className="container text-center">
                     <img src={details.flags.png} alt=".." />
                     <h4>Name :{details.name.common} </h4>
+                    <h4>Capital :{details.capital} </h4>
                     <h3>Democratic :{details.name.official} </h3>
                 </div>
 
