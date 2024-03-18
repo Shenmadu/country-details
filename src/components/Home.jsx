@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import axios from "axios";
-const logoStyle = {
-    width: '100px',
-    height: 'auto',
-};
 
 
 export default function Home() {
@@ -48,12 +44,12 @@ export default function Home() {
             </div>
             {details && details.map(details =>
                 <div className="container" key={details}>
-                    <div className=" text-center ">
-                        <img src={details.flags.png} alt=".." />
-                        <img style={logoStyle} src={details.coatOfArms.png} alt=".." />
+                    <div className="flex justify-center space-x-4">
+                        <img  src={details.flags.png} alt=".." />
+                        <img className="max-w-28 " src={details.coatOfArms.png} alt=".." />
                     </div>
                     <ul>
-                        <li> <h4>Country Name :{details.name.common} </h4></li>                        
+                        <li> <h4 className="text-orange-400 ">Country Name : <span className="text-black">{details.name.common} </span> </h4></li>                        
                         <li> <h4>Capital :{details.capital} </h4></li>
                         <li> <h4>Region :{details.region} </h4></li>
                         <li> <h4>Sub Region :{details.subregion} </h4></li>
