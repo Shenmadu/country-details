@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import axios from "axios";
 const logoStyle = {
     width: '100px',
     height: 'auto',
@@ -17,13 +18,12 @@ export default function Home() {
         console.log(searchCountry);
         setCountry(searchCountry);
     }
-    useEffect(() => {
-        fetch(`https://restcountries.com/v3.1/name/${country}?fullText=true`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setDetails(data);
-            });
+    useEffect(() => {      
+        axios.get(`https://restcountries.com/v3.1/name/${country}?fullText=true`)
+        .then((res) => {
+            console.log(res.data);
+            setDetails(res.data);
+        })
 
     }, [country])
 
