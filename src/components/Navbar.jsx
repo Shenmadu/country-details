@@ -1,37 +1,4 @@
-// import { IconButton } from '@mui/material';
-// import AppBar from '@mui/material/AppBar';
-// import Toolbar from '@mui/material/Toolbar';
-// import MenuIcon from '@mui/icons-material/Menu';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
-
-// export default function Navbar() {
-
-//     return (
-//         <div>          
-//             <AppBar position="static">
-//                 <Toolbar>
-
-//                     <Typography
-//                         variant="h6"
-//                         component="div"
-//                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-//                     >
-//                         Country Details
-//                     </Typography>
-//                     <Button color="inherit">Home</Button>
-//                     <Button color="inherit">Curency</Button>
-//                     <Button color="inherit">population</Button>
-//                 </Toolbar>
-//             </AppBar>
-
-
-//         </div>
-//     )
-// }
 import * as React from 'react';
-import PropTypes from 'prop-types';
-
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -74,8 +41,8 @@ function Navbar() {
 
   return (
     <div>
-      <AppBar 
-        position="fixed" 
+      <AppBar
+        position="fixed"
         sx={{
           boxShadow: 0,
           bgcolor: 'transparent',
@@ -84,14 +51,14 @@ function Navbar() {
         }}
       >
         <Container maxWidth="lg" >
-          <Toolbar 
+          <Toolbar
             variant="regular"
             sx={(theme) => ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               flexShrink: 0,
-              borderRadius: '999px',              
+              borderRadius: '999px',
               bgcolor:
                 theme.palette.mode === 'light'
                   ? 'rgba(255, 255, 255, 0.4)'
@@ -106,7 +73,7 @@ function Navbar() {
                   : '0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)',
             })}
           >
-            <Box 
+            <Box
               sx={{
                 flexGrow: 1,
                 display: 'flex',
@@ -117,7 +84,7 @@ function Navbar() {
             >
               <img
                 src={
-                logo
+                  logo
                 }
                 style={logoStyle}
                 alt="logo of sitemark"
@@ -136,7 +103,7 @@ function Navbar() {
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
-                    Currency
+                    Details
                   </Typography>
                 </MenuItem>
                 <MenuItem
@@ -144,13 +111,13 @@ function Navbar() {
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary" >
-                    population
+                    Currency
                   </Typography>
-                </MenuItem>        
-               
+                </MenuItem>
+
               </Box>
             </Box>
-            
+
             <Box sx={{ display: { sm: '', md: 'none' } }}>
               <Button
                 variant="text"
@@ -178,7 +145,7 @@ function Navbar() {
                       flexGrow: 1,
                     }}
                   >
-                
+
                   </Box>
                   <MenuItem onClick={() => scrollToSection('features')}>
                     Features
@@ -193,8 +160,8 @@ function Navbar() {
                     Pricing
                   </MenuItem>
                   <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
-                  <Divider />                
-                
+                  <Divider />
+
                 </Box>
               </Drawer>
             </Box>

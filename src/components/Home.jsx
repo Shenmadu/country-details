@@ -78,8 +78,8 @@ export default function Home() {
                         </div>
 
                     </div>
-                    <ul className="font-sans mt-3">
-                        <li> <h4 >Country Name : <span className="text-black">{details.name.common} </span> </h4></li>
+                    <ul className="font-sans mt-3 ">
+                        <li> <h4 >Country Name : <span className="text-black ">{details.name.common} </span> </h4></li>
                         <li> <h4 >Capital :{details.capital} </h4></li>
                         <li> <h4>Region :{details.region} </h4></li>
                         <li> <h4>Sub Region :{details.subregion} </h4></li>
@@ -92,7 +92,7 @@ export default function Home() {
                         {Object.values(details.languages).map(value => {
                             return (
                                 <div key={value}>
-                                    <h4>{value}</h4>
+                                    <li className="list-disc list-inside text-lg font-semibold">{value}</li>
                                 </div>);
 
                         })}
@@ -100,8 +100,9 @@ export default function Home() {
                         {Object.values(details.currencies).map(value => {
                             return (
                                 <div key={value}>
-                                    <h4>{value.name}</h4>
-                                    <h4>{value.symbol}</h4>
+                                     <li className="list-disc list-inside text-lg font-semibold">{value.name}</li>
+                                     <li className=" list-inside text-lg font-semibold">{value.symbol}</li>
+                                   
                                 </div>);
 
                         })}
