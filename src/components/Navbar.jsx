@@ -74,8 +74,8 @@ function Navbar() {
 
   return (
     <div>
-      <AppBar
-        position="fixed"
+      <AppBar 
+        position="fixed" 
         sx={{
           boxShadow: 0,
           bgcolor: 'transparent',
@@ -83,15 +83,15 @@ function Navbar() {
           mt: 2,
         }}
       >
-        <Container maxWidth="lg">
-          <Toolbar
+        <Container maxWidth="lg" >
+          <Toolbar 
             variant="regular"
             sx={(theme) => ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               flexShrink: 0,
-              borderRadius: '999px',
+              borderRadius: '999px',              
               bgcolor:
                 theme.palette.mode === 'light'
                   ? 'rgba(255, 255, 255, 0.4)'
@@ -106,7 +106,7 @@ function Navbar() {
                   : '0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)',
             })}
           >
-            <Box
+            <Box 
               sx={{
                 flexGrow: 1,
                 display: 'flex',
@@ -143,7 +143,7 @@ function Navbar() {
                   onClick={() => scrollToSection('highlights')}
                   sx={{ py: '6px', px: '12px' }}
                 >
-                  <Typography variant="body2" color="text.primary">
+                  <Typography variant="body2" color="text.primary" >
                     population
                   </Typography>
                 </MenuItem>        

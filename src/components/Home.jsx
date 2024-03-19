@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import axios from "axios";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+
 
 
 export default function Home() {
@@ -14,28 +20,29 @@ export default function Home() {
         console.log(searchCountry);
         setCountry(searchCountry);
     }
-    useEffect(() => {      
+    useEffect(() => {
         axios.get(`https://restcountries.com/v3.1/name/${country}?fullText=true`)
-        .then((res) => {
-            console.log(res.data);
-            setDetails(res.data);
-        })
+            .then((res) => {
+                console.log(res.data);
+                setDetails(res.data);
+            })
 
     }, [country])
 
+
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            console.log("location");
-            console.log(position.coords);
-
-        })
-
-
-    }, [])
+        if ("geolocation" in navigator) {         
+          navigator.geolocation.getCurrentPosition(
+            position => {
+                const { latitude, longitude } = position.coords;               
+            }
+          );
+        } 
+      }, []); 
 
 
     return (
-        <div className="container  mt-5">
+        <div className="container  mt-5 bg-cyan-50">
             <div className="col-4 py-5 mx-auto">
                 <div className="d-flex" role="search">
                     <TextField id="search-txt" className="form-control me-2" label="Standard" variant="standard" />
@@ -44,17 +51,39 @@ export default function Home() {
             </div>
             {details && details.map(details =>
                 <div className="container" key={details}>
-                    <div className="flex justify-center space-x-4">
-                        <img  src={details.flags.png} alt=".." />
-                        <img className="max-w-28 " src={details.coatOfArms.png} alt=".." />
+                    <h3 className="text-orange-400 text-center">{details.name.common}</h3>
+                    <div className="row  justify-content-center">
+                        <div className="col-lg-4 col-md-10  col-sm-10 mx-auto  ">
+                            <Card sx={{ maxWidth: 400 }}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        component="img"
+                                        height="140"
+                                        image={details.flags.png}
+                                        alt="green iguana"
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {details.name.common} Flag
+                                        </Typography>
+                                        <Typography variant="body2" className="text-stone-950">
+                                            {details.flags.alt}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </div>
+                        <div className="col-lg-4 col-md-10 col-sm-auto ">
+                            <img className="max-w-32 " src={details.coatOfArms.png} alt=".." />
+                        </div>
+
                     </div>
-                    <ul>
-                        <li> <h4 className="text-orange-400 ">Country Name : <span className="text-black">{details.name.common} </span> </h4></li>                        
-                        <li> <h4>Capital :{details.capital} </h4></li>
+                    <ul className="font-sans mt-3">
+                        <li> <h4 >Country Name : <span className="text-black">{details.name.common} </span> </h4></li>
+                        <li> <h4 >Capital :{details.capital} </h4></li>
                         <li> <h4>Region :{details.region} </h4></li>
                         <li> <h4>Sub Region :{details.subregion} </h4></li>
-                        <li> <h4>Democratic :{details.name.official} </h4></li>
-                        <li> <h4>About Flag: {details.flags.alt}</h4></li>
+                        <li> <h4>Democratic :{details.name.official} </h4></li>                       
                         <li> <h4>Area :{details.area} </h4></li>
                         <li> <h4>population :{details.population} </h4></li>
                         <li> <h4>Time Zone :{details.timezones} </h4></li>
@@ -62,29 +91,24 @@ export default function Home() {
                         <li><h4>Languages :</h4></li>
                         {Object.values(details.languages).map(value => {
                             return (
-                            <div key={value}>                               
-                                <h4>{value}</h4>
-                            </div>);
+                                <div key={value}>
+                                    <h4>{value}</h4>
+                                </div>);
 
-                        })}                       
+                        })}
                         <li><h4>Currencies :</h4></li>
                         {Object.values(details.currencies).map(value => {
                             return (
-                            <div key={value}>                               
-                                <h4>{value.name}</h4>
-                                <h4>{value.symbol}</h4>
-                            </div>);
+                                <div key={value}>
+                                    <h4>{value.name}</h4>
+                                    <h4>{value.symbol}</h4>
+                                </div>);
 
                         })}
 
                     </ul>
-
                 </div>
-
             )}
-
-
-
         </div>
     )
 }
