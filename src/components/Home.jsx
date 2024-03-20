@@ -17,28 +17,43 @@ export default function Home() {
 
     function search() {
         const searchCountry = document.getElementById("search-txt").value;
-        console.log(searchCountry);
         setCountry(searchCountry);
     }
+
+
+    useEffect(() => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                async position => {
+                    const { latitude, longitude } = position.coords;
+                    try {
+                        const response = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+                        const countryName = response.data.countryName;
+                        setCountry(countryName);
+                    } catch (error) {
+                        console.error('Error fetching country data:', error);
+                    }
+                },
+                error => {
+                    console.error('Error getting geolocation:', error);
+                }
+            );
+        } else {
+            console.error('Geolocation is not supported');
+        }
+    }, []);
+
     useEffect(() => {
         axios.get(`https://restcountries.com/v3.1/name/${country}?fullText=true`)
             .then((res) => {
                 console.log(res.data);
                 setDetails(res.data);
             })
+            .catch(error => {
+                console.error('Error fetching country details:', error);
+            });
 
     }, [country])
-
-
-    useEffect(() => {
-        if ("geolocation" in navigator) {         
-          navigator.geolocation.getCurrentPosition(
-            position => {
-                const { latitude, longitude } = position.coords;               
-            }
-          );
-        } 
-      }, []); 
 
 
     return (
@@ -78,36 +93,40 @@ export default function Home() {
                         </div>
 
                     </div>
-                    <ul className="font-sans mt-3 ">
-                        <li> <h4 >Country Name : <span className="text-black ">{details.name.common} </span> </h4></li>
-                        <li> <h4 >Capital :{details.capital} </h4></li>
-                        <li> <h4>Region :{details.region} </h4></li>
-                        <li> <h4>Sub Region :{details.subregion} </h4></li>
-                        <li> <h4>Democratic :{details.name.official} </h4></li>                       
-                        <li> <h4>Area :{details.area} </h4></li>
-                        <li> <h4>population :{details.population} </h4></li>
-                        <li> <h4>Time Zone :{details.timezones} </h4></li>
-                        <li> <h4>Start Of Week :{details.startOfWeek} </h4></li>
-                        <li><h4>Languages :</h4></li>
-                        {Object.values(details.languages).map(value => {
-                            return (
-                                <div key={value}>
-                                    <li className="list-disc list-inside text-lg font-semibold">{value}</li>
-                                </div>);
+                    <div className="col-8 mx-auto">
+                        <ul className="font-sans mt-3 ">
+                            <li> <h4 >Country Name : <span className="text-black ">{details.name.common} </span> </h4></li>
+                            <li> <h4 >Capital :{details.capital} </h4></li>
+                            <li> <h4>Region :{details.region} </h4></li>
+                            <li> <h4>Sub Region :{details.subregion} </h4></li>
+                            <li> <h4>Democratic :{details.name.official} </h4></li>
+                            <li> <h4>Area :{details.area}</h4></li>
+                            <li> <h4>population :{details.population} </h4></li>
+                            <li> <h4>Idd :{details.idd.root}{details.idd.suffixes} </h4></li>
+                            <li> <h4>Time Zone :{details.timezones} </h4></li>
+                            <li> <h4>Start Of Week :{details.startOfWeek} </h4></li>
+                            <li><h4>Languages :</h4></li>
+                            {Object.values(details.languages).map(value => {
+                                return (
+                                    <div key={value}>
+                                        <li className="list-disc list-inside text-lg font-semibold">{value}</li>
+                                    </div>);
 
-                        })}
-                        <li><h4>Currencies :</h4></li>
-                        {Object.values(details.currencies).map(value => {
-                            return (
-                                <div key={value}>
-                                     <li className="list-disc list-inside text-lg font-semibold">{value.name}</li>
-                                     <li className=" list-inside text-lg font-semibold">{value.symbol}</li>
-                                   
-                                </div>);
+                            })}
+                            <li><h4>Currencies :</h4></li>
+                            {Object.values(details.currencies).map(value => {
+                                return (
+                                    <div key={value}>
+                                        <li className="list-disc list-inside text-lg font-semibold">{value.name}</li>
+                                        <li className=" list-inside text-lg font-semibold">{value.symbol}</li>
 
-                        })}
+                                    </div>);
 
-                    </ul>
+                            })}
+
+                        </ul>
+                    </div>
+
                 </div>
             )}
         </div>
